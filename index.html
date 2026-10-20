@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تطبيق محفظتي الرقمية</title>
+    <style>
+        /* خلفية متدرجة من البنفسجي والزهري الغامق إلى الأبيض */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #4a148c 0%, #c2185b 50%, #ffffff 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        /* كرت الواجهة البنكية الافتراضية */
+        .wallet-card {
+            background: rgba(255, 255, 255, 0.98);
+            padding: 35px 25px;
+            border-radius: 24px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            width: 320px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+        /* الشعار البنكي الافتراضي المبتكر */
+        .bank-logo {
+            width: 65px;
+            height: 65px;
+            background: linear-gradient(45deg, #4a148c, #c2185b);
+            border-radius: 18px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            margin: 0 auto 15px auto;
+            box-shadow: 0 5px 15px rgba(194, 24, 91, 0.3);
+        }
+        .bank-name {
+            font-size: 18px;
+            font-weight: bold;
+            color: #4a148c;
+            margin: 0 0 25px 0;
+            letter-spacing: 0.5px;
+        }
+        h3 {
+            margin: 0 0 10px 0;
+            color: #212121;
+            font-size: 20px;
+        }
+        .subtitle {
+            color: #757575;
+            font-size: 13px;
+            margin-bottom: 25px;
+        }
+        /* خانات إدخال البيانات المعتمدة في التطبيقات الحديثة */
+        .input-group {
+            margin-bottom: 15px;
+            text-align: right;
+        }
+        .input-group label {
+            display: block;
+            font-size: 12px;
+            color: #4a148c;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input {
+            width: 100%;
+            padding: 14px;
+            box-sizing: border-box;
+            border: 1.5px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 15px;
+            background-color: #fafafa;
+            transition: all 0.3s ease;
+        }
+        input:focus {
+            border-color: #c2185b;
+            outline: none;
+            background-color: #ffffff;
+            box-shadow: 0 0 0 4px rgba(194, 24, 91, 0.1);
+        }
+        /* زر الخدمات الرئيسي */
+        .btn-submit {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(90deg, #4a148c, #c2185b);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 15px;
+            box-shadow: 0 4px 12px rgba(74, 20, 140, 0.2);
+            transition: all 0.3s ease;
+        }
+        .btn-submit:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="wallet-card">
+    <!-- الشعار الافتراضي للمحفظة البنكية التخيلية -->
+    <div class="bank-logo">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="5" width="20" height="14" rx="2"></rect>
+            <line x1="2" y1="10" x2="22" y2="10"></line>
+        </svg>
+    </div>
+    <div class="bank-name">محفظتي الرقمية</div>
+
+    <!-- الواجهة الأولى: تسجيل الدخول البنكي الافتراضي -->
+    <div id="step1">
+        <h3>تسجيل الدخول الآمن</h3>
+        <p class="subtitle">الرجاء إدخال بيانات حسابك الافتراضي للمتابعة</p>
+        
+        <div class="input-group">
+            <label>اسم المستخدم / المعرف المعياري</label>
+            <input type="text" id="username" placeholder="أدخل اسم المستخدم...">
+        </div>
+        
+        <div class="input-group">
+            <label>كلمة المرور الخاصة بالحساب</label>
+            <input type="password" id="password" placeholder="••••••••">
+        </div>
+        
+        <button class="btn-submit" onclick="nextStep()">موافق</button>
+    </div>
+
+    <!-- الواجهة الثانية: إدخال رمز الأمان السري -->
+    <div id="step2" class="hidden">
+        <h3>رمز التأكيد والأمان</h3>
+        <p class="subtitle">يرجى إدخال الرمز السري المؤقت المرسل إلى هاتفك المحمول</p>
+        
+        <div class="input-group">
+            <label style="text-align: center;">كود التحقق (OTP)</label>
+            <input type="text" id="authCode" placeholder="0 0 0 0 0 0" style="text-align: center; letter-spacing: 6px; font-weight: bold; font-size: 18px;">
+        </div>
+        
+        <button class="btn-submit" onclick="finish()">تأكيد الرمز والدخول</button>
+    </div>
+</div>
+
+<script>
+    // الدوال البرمجية لإدارة الواجهة الافتراضية
+    function nextStep() {
+        var user = document.getElementById('username').value;
+        var pass = document.getElementById('password').value;
+        
+        if(user === "" || pass === "") {
+            alert("خطأ: يجب ملء حقول تسجيل الدخول أولاً!");
+            return;
+        }
+        
+        // إخفاء المرحلة الأولى والانتقال لمرحلة كود التحقق
+        document.getElementById('step1').classList.add('hidden');
+        document.getElementById('step2').classList.remove('hidden');
+    }
+
+    function finish() {
+        var code = document.getElementById('authCode').value;
+        if(code === "") {
+            alert("خطأ: يرجى كتابة رمز الأمان المرسل!");
+            return;
+        }
+        alert("محاكاة تعليمية ناجحة!\nتم تسجيل الدخول بنجاح إلى محفظتك الافتراضية بنظام تحكم آمن.");
+    }
+</script>
+
+</body>
+</html>
